@@ -20,8 +20,8 @@ services:
     container_name: outoftale-nginx
     image: nginx:alpine
     volumes:
+      - ./letsencrypt:/etc/letsencrypt
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - /etc/letsencrypt:/etc/letsencrypt
     ports:
       - 80:80
       - 443:443

@@ -1,14 +1,18 @@
 User-agent: *
 
-Disallow: /auth
 Disallow: /chats
 Disallow: /discussions
+Disallow: /discussions/create
 Disallow: /drafts
 Disallow: /login
+Disallow: /messages
+Disallow: /oauth
 Disallow: /problems
+Disallow: /problems/create
 Disallow: /reset
 Disallow: /signup
 Disallow: /solutions
+Disallow: /talks
 Disallow: /users
 Allow: /problems/
 Allow: /discussions/

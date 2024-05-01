@@ -1,13 +1,13 @@
 version: "3"
 services:
   app:
-    container_name: outoftale-app
+    container_name: reshadium-app
     working_dir: /app
     build:
       context: ./app
 
   pb:
-    container_name: outoftale-pb
+    container_name: reshadium-pb
     working_dir: /pb
     build:
       context: ./pb
@@ -17,7 +17,7 @@ services:
       - ./pb/pb_migrations:/pb/pb_migrations
 
   nginx:
-    container_name: outoftale-nginx
+    container_name: reshadium-nginx
     image: nginx:alpine
     volumes:
       - ./letsencrypt:/etc/letsencrypt

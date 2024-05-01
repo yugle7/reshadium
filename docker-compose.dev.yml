@@ -1,7 +1,7 @@
 version: "3"
 services:
   app:
-    container_name: outoftale-app
+    container_name: reshadium-app
     working_dir: /app
     build:
       context: ./app
@@ -13,7 +13,7 @@ services:
       - 3000:3000
 
   pb:
-    container_name: outoftale-pb
+    container_name: reshadium-pb
     working_dir: /pb
     build:
       context: ./pb

@@ -1,0 +1,23 @@
+<script>
+	import Role from './Role.svelte';
+	import Wanted from './Wanted.svelte';
+
+	import Profile from './Profile.svelte';
+
+	export let user;
+	export let profile;
+</script>
+
+<div class="col scroll gap-30 padding-20 content-900">
+	{#if user}
+		<Profile author={user} />
+		{#if profile && profile.role >= 2 && profile.role > user.role}
+			<Role {user} />
+		{/if}
+	{:else}
+		<Profile author={profile} />
+		{#if profile.to}
+			<Wanted {profile} />
+		{/if}
+	{/if}
+</div>

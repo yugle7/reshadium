@@ -1,0 +1,52 @@
+{
+    "meta": {
+        "id": "102540137405576628631",
+        "name": "Gleb Yuzhakov",
+        "username": "",
+        "email": "uzhakov@gmail.com",
+        "avatarUrl": "https://lh3.googleusercontent.com/a/ACg8ocI2p3xujGDCStAXhiWUO9mkr4WjlFKIh8x_xW70u7ke=s96-c",
+        "accessToken": "ya29.a0AfB_byD-qmrp1ALRsk1kXry5JzP4BtkxWcGu13JQ8VLuOGBue5LiiJic7S2W6130t8xHhC3vbY9mKrdTb09aHWtwdegOtzDP_poHTLD4XkMutPxH3nC1VFbi53-FVS4yQFPYHhR_3jcV6raTrmi4AwU421XFvXxqwmgaCgYKAd8SARISFQHGX2MitVeHdY3aWbXJ6I_AxVRf9w0170",
+        "refreshToken": "",
+        "expiry": "2024-02-28 12:35:53.046Z",
+        "rawUser": {
+            "email": "uzhakov@gmail.com",
+            "family_name": "Yuzhakov",
+            "given_name": "Gleb",
+            "id": "102540137405576628631",
+            "locale": "ru",
+            "name": "Gleb Yuzhakov",
+            "picture": "https://lh3.googleusercontent.com/a/ACg8ocI2p3xujGDCStAXhiWUO9mkr4WjlFKIh8x_xW70u7ke=s96-c",
+            "verified_email": true
+        },
+        "isNew": true
+    },
+    "record": {
+        "banned": false,
+        "collectionId": "_pb_users_auth_",
+        "collectionName": "users",
+        "contacts": null,
+        "created": "2024-02-28 11:35:54.533Z",
+        "discussions": 0,
+        "drafts": 0,
+        "email": "uzhakov@gmail.com",
+        "emailVisibility": false,
+        "friends": 0,
+        "fullname": "",
+        "id": "8avpi33kitb6t3c",
+        "impact": 0,
+        "paid": false,
+        "position": 0,
+        "problems": 0,
+        "provider": 0,
+        "rating": 0,
+        "role": 0,
+        "solutions": 0,
+        "to": 0,
+        "updated": "2024-02-28 11:35:54.533Z",
+        "username": "users73389",
+        "valid": false,
+        "verified": true,
+        "wanted": ""
+    },
+    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJjb2xsZWN0aW9uSWQiOiJfcGJfdXNlcnNfYXV0aF8iLCJleHAiOjE3MTAzMjk3NTQsImlkIjoiOGF2cGkzM2tpdGI2dDNjIiwidHlwZSI6ImF1dGhSZWNvcmQifQ.PX94FtEPBBhSO1xtih2tz0zfl7N5vxeMqnXFb9yHDpY"
+}

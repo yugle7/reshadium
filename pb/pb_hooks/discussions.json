@@ -6,8 +6,7 @@
         "author_id": "i53yw5mjnhp0fhw",
         "topic": 1,
         "author": {
-            "username": "creator",
-            "position": 4
+            "username": "creator"
         }
     },
     {
@@ -17,8 +16,7 @@
         "author_id": "i53yw5mjnhp0fhw",
         "topic": 1,
         "author": {
-            "username": "creator",
-            "position": 4
+            "username": "creator"
         }
     }
 ]

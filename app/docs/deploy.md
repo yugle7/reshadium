@@ -1,25 +1,49 @@
-ssh gleb@178.154.206.249
+ssh root@2.58.70.16
 sudo apt update
 sudo apt install git-all
+git clone https://github.com/yugle7/reshadium.git
 
-"nvm установка на убунту и добавляем переменные окружения, чтобы он заработал NVM_DIR"
-nvm install версия_ноды
+- nvm установка на убунту
+переходим в https://github.com/nvm-sh/nvm
+curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/master/install.sh | bash
+
+- добавляем переменные окружения, чтобы он заработал NVM_DIR"
+export NVM_DIR="$([ -z "${XDG_CONFIG_HOME-}" ] && printf %s "${HOME}/.nvm" || printf %s "${XDG_CONFIG_HOME}/nvm")"
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" # This loads nvm
+
+nvm install node или версия
+
+- устанавливаем nginx
+sudo apt install nginx
+
+- устанавливаем vim
+sudo apt install vim
+
+- копируем .env в app
 
 - убираем pb/pb_hooks
 - npm i
-если ругается на pocketbase, то установить отдельно
-- копируем .env
-- собираем
-npm run build
+- npm run build
+
+- устанавливаем vim
+sudo apt install vim
+
+- установка docker
+sudo snap install core snapd
+sudo snap install docker
+
+- certbot
+sudo snap install --classic certbot
+следуем инструкции https://certbot.eff.org/instructions?ws=nginx&os=ubuntufocal
 
 - удаляем старый образ
 docker images
 docker rmi id
 
+netstat -tulpen
+systemctl stop nginx
+
 docker-compose up --build
+docker-compose down
 
-sudo apt install nginx
 
-sudo ./pocketbase serve --http="10.128.0.16:80" --https="10.128.0.16:443"
-npm run build
-ORIGIN=http://178.154.206.249:3000 HOST=10.128.0.16 node -r dotenv/config build

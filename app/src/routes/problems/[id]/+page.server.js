@@ -1,6 +1,6 @@
 import { addId } from "$lib";
 import { solution_progress } from "$lib/solution/data";
-import { getAuthor, getAdmin } from "$lib/user/data";
+import { getAuthor, robot } from "$lib/user/data";
 import { isProven } from "$lib/rule/data";
 import { loadMessages } from "$lib/chat/data";
 
@@ -218,11 +218,10 @@ export const actions = {
             const proven = await isProven(pb, problem, answer, proof);
             if (proven != null) {
                 progress = proven ? 5 : 4;
-                reviewer = getAdmin('robot');
+                reviewer = robot;
             }
         }
         await updateSolution(pb, solution, reviewer, progress, answer, proof);
-
         return { progress };
     },
     status: async ({ request, params, locals }) => {

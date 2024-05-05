@@ -1,0 +1,12 @@
+[
+    {
+        "regexp": "рос(ой|[ауы])",
+        "match": true,
+        "problem_id": "jtzhl7emhy1i6x5"
+    },
+    {
+        "regexp": "(автодорог|дорог|автомобил|машин|фар)[а-я]*",
+        "match": true,
+        "problem_id": "6ctos2sm1ve6kfy"
+    }
+]

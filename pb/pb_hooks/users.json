@@ -1,39 +1,39 @@
 [
     {
-        "id": "0000000000robot",
+        "id": "ovl2jlf216i50fn",
         "username": "robot",
         "role": 3,
         "to": 3
     },
     {
-        "id": "00000000support",
+        "id": "rmcy3q2dn7pfkox",
         "username": "support",
-        "role": 3,
-        "to": 3
+        "role": 2,
+        "to": 2
     },
     {
-        "id": "000000000tester",
+        "id": "sktfuclc04zrurb",
         "username": "tester",
-        "role": 3,
-        "to": 3
+        "role": 2,
+        "to": 2
     },
     {
-        "id": "000000000creator",
+        "id": "i53yw5mjnhp0fhw",
         "username": "creator",
-        "role": 3,
-        "to": 3
+        "role": 2,
+        "to": 2
     },
     {
-        "id": "00000000000admin",
+        "id": "hwxkfjbulwc2rzu",
         "username": "admin",
-        "role": 3,
-        "to": 3
+        "role": 2,
+        "to": 2
     },
     {
-        "id": "00000000moderator",
+        "id": "kuyk6ppn8l6e9zw",
         "username": "moderator",
-        "role": 3,
-        "to": 3
+        "role": 2,
+        "to": 2
     },
     {
         "username": "user",
@@ -58,28 +58,52 @@
         "impact": 801
     },
     {
-        "id": "0000000000owner",
+        "id": "l6jvpy680f9ctw6",
         "username": "owner",
-        "role": 3,
-        "to": 3
+        "role": 2,
+        "to": 2
     },
     {
-        "id": "0000000sysadmin",
+        "id": "c16l9fi6l7hwbf9",
+        "username": "superuser",
+        "role": 2,
+        "to": 2
+    },
+    {
+        "id": "cnu52sl1rwfi1x5",
+        "username": "director",
+        "role": 2,
+        "to": 2
+    },
+    {
+        "id": "wiots4jjdhijyph",
+        "username": "manager",
+        "role": 2,
+        "to": 2
+    },
+    {
+        "id": "mkuv7z53qg7a4rp",
         "username": "sysadmin",
-        "role": 3,
-        "to": 3
+        "role": 2,
+        "to": 2
     },
     {
-        "id": "00000000000root",
+        "id": "b3z6b8u5kz6cf07",
         "username": "root",
-        "role": 3,
-        "to": 3
+        "role": 2,
+        "to": 2
     },
     {
-        "id": "00000000webmaster",
+        "id": "rr4jg949gaexrm0",
+        "username": "administrator",
+        "role": 2,
+        "to": 2
+    },
+    {
+        "id": "e81m2y4l5hatds0",
         "username": "webmaster",
-        "role": 3,
-        "to": 3
+        "role": 2,
+        "to": 2
     },
     {
         "username": "alan",

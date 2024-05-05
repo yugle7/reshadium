@@ -29,11 +29,11 @@ export function getAuthor(user) {
     return { username, position };
 }
 
-export const getAdmin = (username) => ({
-    id: username.padStart(15, '0'),
-    username,
+export const robot = {
+    id: 'ovl2jlf216i50fn',
+    username: 'robot',
     role: 3
-});
+};
 
 
 export function getColor(position) {

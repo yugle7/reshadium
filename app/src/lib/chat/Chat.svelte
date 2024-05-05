@@ -1,6 +1,7 @@
 <script>
 	import { enhance, applyAction } from '$app/forms';
 	import { pb, screen } from '$lib';
+	import { getTime } from '$lib/time/data';
 
 	import { onDestroy, onMount } from 'svelte';
 	import { show, look, down, find } from './data';
@@ -32,8 +33,8 @@
 				m.date = date = m.created.substring(0, 11);
 			}
 			if (profile) m.react = talk.reacts[m.id];
+			m.created = getTime(m.created)
 		});
-
 		$look = talk.message_id;
 	}
 
@@ -44,7 +45,8 @@
 			if (record.chat_id !== chat.id) return;
 
 			if (action === 'create') {
-				if (!record.created.startsWith(date)) {
+				record.created = getTime(record.created);
+				if (!record.created .startsWith(date)) {
 					record.date = date = record.created.substring(0, 11);
 				}
 				messages = [...messages, record];
@@ -102,8 +104,6 @@
 
 	onMount(subscribe);
 	onDestroy(unsubscribe);
-
-	$: console.log('messages', messages.length);
 </script>
 
 <div class="col page side">

@@ -1,33 +1,12 @@
 import { default_params } from '$lib/problem/data';
 
-async function loadReacts(pb, profile) {
-    const res = await pb.collection('solutions').getFullList({
-        filter: `author_id="${profile.id}"`
-    });
-    if (res.length) {
-        const reacts = {};
-        res.forEach(({ problem_id, react }) => (reacts[problem_id] = react));
-        return reacts;
-    }
-}
-
-async function loadProgresses(pb, profile) {
-
-    if (res.length) {
-        const progresses = {};
-        res.forEach(({ problem_id, progress }) => (progresses[problem_id] = progress));
-        const reacts = {};
-        res.forEach(({ problem_id, react }) => (reacts[problem_id] = react));
-        return { progresses, reacts };
-    }
-}
-
 async function loadProblems(pb, profile, params) {
-    const { sort, category, weight, status, author_id, progress } = params;
+    const { sort, category, weight, status, author_id, progress, rule } = params;
 
     const filters = [];
     if (weight != null) filters.push(`weight=${weight}`);
     if (status != null) filters.push(`status=${status}`);
+    if (rule != null) filters.push(`rule=${rule}`);
 
     if (category != null) filters.push(`categories~'"${category}"'`);
     if (author_id) filters.push(`author_id="${author_id}"`);
@@ -63,7 +42,7 @@ export async function load({ locals, url }) {
     const profile = pb.authStore.model;
 
     const params = { ...default_params };
-    for (const key of ['weight', 'category', 'author_id']) params[key] = url.searchParams.get(key);
+    for (const key of ['weight', 'category', 'author_id', 'rule']) params[key] = url.searchParams.get(key);
 
     const sort = url.searchParams.get('sort');
     if (sort) params.sort = sort;

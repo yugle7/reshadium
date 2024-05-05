@@ -3,7 +3,7 @@
 
 	export let react;
 	export let count = 0;
-	
+
 	export let disabled = false;
 	export let checked = false;
 	export let clicked = false;
@@ -12,19 +12,9 @@
 	const color = react_color[icon];
 </script>
 
-<button
-	{disabled}
-	class="row gap-2 padding-3 link"
-	class:checked
-	on:click|stopPropagation
->
-	<img
-		class={count || clicked ? color : ''}
-		class:clicked
-		src="/icons/{icon}.svg"
-		alt={icon}
-	/>
-	{#if count > 1}<span class="monospace font-14 line-1">{count}</span>{/if}
+<button {disabled} class="row gap-2 right-10 link" class:checked on:click|stopPropagation>
+	<img class={count || clicked ? color : ''} class:clicked src="/icons/{icon}.svg" alt={icon} />
+	{#if count > 1}<span class="monospace font-16">{count}</span>{/if}
 </button>
 
 <style>
@@ -35,14 +25,10 @@
 		opacity: 100%;
 	}
 	button {
-		padding-right: 10px;
-		padding-left: 0;
-		color: var(--color-75);
+		align-items: flex-end; 
 	}
-
 	img {
-		width: 20px;
-		min-width: 20px;
-		padding-bottom: 5px;
+		width: 24px;
+		min-width: 24px;
 	}
 </style>

@@ -1,18 +1,23 @@
 import { redirect } from '@sveltejs/kit';
 
-const getUsername = async (id) => {
-    for (let i = 0; i < 10; i++) {
-        try {
-            const res = await pb.collection('username').getOne('000000000000000');
-            username = res.which + res.who;
+const getUsername = async (record) => {
+    const { id, username } = record;
 
-            await pb.collection('users').update(id, { username });
-            return username;
+    if (username.startsWith('users')) {
+        for (let i = 0; i < 10; i++) {
+            try {
+                const { which, who } = await pb.collection('username').getOne('000000000000000');
+                username = which + who;
 
-        } catch (err) {
-            console.log(err.message);
+                const res = await pb.collection('users').update(id, { username: which + who });
+                if (res) return res.username;
+
+            } catch (err) {
+                console.log(err.message);
+            }
         }
     }
+    return username;
 }
 export const GET = async ({ locals, url, cookies }) => {
     const provider = JSON.parse(cookies.get('provider'));
@@ -27,17 +32,14 @@ export const GET = async ({ locals, url, cookies }) => {
     try {
         const pb = locals.pb;
 
-        const { meta, record } = await pb.collection('users').authWithOAuth2Code(
+        const { record } = await pb.collection('users').authWithOAuth2Code(
             provider.name,
             code,
             provider.codeVerifier,
             url.origin + '/oauth'
         )
-
-        if (meta.isNew && record.username.startsWith('users')) {
-            username = await getUsername(record.id);
-        }
-        username = username || record.username;
+        username = await getUsername(record);
+        console.log(username);
 
     } catch (err) {
         console.error(err);

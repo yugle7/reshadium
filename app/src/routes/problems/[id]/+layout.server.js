@@ -29,7 +29,8 @@ async function loadSolution(pb, profile, problem) {
             author: getAuthor(profile),
             problem_id: problem.id,
             answer: '',
-            proof: ''
+            proof: '',
+            changed: new Date()
         });
     }
 }

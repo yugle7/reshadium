@@ -7,7 +7,7 @@
 </script>
 
 <input name={key} id={key} type="hidden" value={$params[key]} />
-<div
+<span
 	role="textbox"
 	tabindex="0"
 	on:paste|preventDefault={copyPaste}
@@ -17,12 +17,12 @@
 />
 
 <style>
-	div {
+	span {
 		width: 100%;
 		outline: none;
 		padding: 0;
 	}
-	div:empty:before {
+	span:empty:before {
 		content: attr(placeholder);
 		opacity: 0.5;
 	}

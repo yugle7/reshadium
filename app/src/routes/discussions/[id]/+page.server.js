@@ -1,4 +1,5 @@
 import { addId } from "$lib";
+import { loadMessages } from "$lib/chat/data";
 
 async function loadReacts(pb, talk_id) {
     const res = await pb.collection('reacts').getFullList({
@@ -31,12 +32,6 @@ async function loadTalk(pb, profile_id, chat_id) {
     return talk;
 }
 
-async function loadMessages(pb, chat_id) {
-    return await pb.collection('messages').getFullList({
-        filter: `chat_id="${chat_id}"`,
-        sort: 'created'
-    });
-}
 async function loadChat(pb, discussion) {
     const { id, title } = discussion;
     let chat;

@@ -6,17 +6,19 @@
 	export let text;
 </script>
 
-<div class="col gap-5">
+<div class="col">
 	{#each parse(text) as result}
-		{#if typeof result === 'string'}
+		{#if result == null}
+			<span style="height: 1em"></span>
+		{:else if typeof result === 'string'}
 			<p class="monospace font-20">{result}</p>
 		{:else}
 			<p>
 				{#each result as r}
 					{#if typeof r === 'string'}
-						<span class="right-5">{r}</span>
+						<span>{r}</span>
 					{:else if r.length === 1}
-						<span class="monospace font-20 right-5">{r[0]}</span>
+						<span class="monospace font-20">{r[0]}</span>
 					{:else if r[0] === '@'}
 						<a class="link" href="/users/{r[1]}">{r[1]}</a>
 					{:else if typeof r[0] === 'string'}

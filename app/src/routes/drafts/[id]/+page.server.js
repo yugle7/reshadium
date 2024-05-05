@@ -1,5 +1,6 @@
 import { addId } from "$lib";
 import { getDraft } from "$lib/draft/data";
+import { loadMessages } from "$lib/chat/data";
 
 async function loadReacts(pb, talk_id) {
     const res = await pb.collection('reacts').getFullList({
@@ -30,13 +31,6 @@ async function loadTalk(pb, profile_id, chat_id) {
         talk.reacts = {};
     }
     return talk;
-}
-
-async function loadMessages(pb, chat_id) {
-    return await pb.collection('messages').getFullList({
-        filter: `chat_id="${chat_id}"`,
-        sort: 'created'
-    });
 }
 
 async function loadChat(pb, draft) {
@@ -83,6 +77,8 @@ export const actions = {
         const pb = locals.pb;
 
         const data = await request.formData();
+        console.log(data);
+
         await pb.collection('drafts').update(params.id, {
             title: data.get('title'),
             condition: data.get('condition'),

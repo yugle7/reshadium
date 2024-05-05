@@ -30,42 +30,41 @@
 	let statuses = getStatuses();
 </script>
 
-{#if drafts || solutions}
-	<div>
-		{#if drafts}
-			<a class="link right-5 comma nowrap" href="/drafts?problem_id={id}">
-				<span class="monospace">{drafts}</span>
-				{getPlural(drafts, ['правка', 'правки', 'правок'])}
-			</a>
-		{/if}
-		{#if solutions}
-			<a class="link right-5 comma nowrap" href="/solutions?problem_id={id}">
-				<span class="monospace">{solutions}</span>
-				{getPlural(solutions, ['решение', 'решения', 'решений'])}
-			</a>
-		{/if}
-	</div>
-{/if}
-
-<form
-	method="post"
-	action="?/status"
-	class="row gap-10 wrap"
-	use:enhance={() => {
-		statuses = getStatuses();
-		return applyAction;
-	}}
->
-	<input type="hidden" bind:value={status} name="status" id="status" />
-
-	<span>{problem_status[status]}</span>
-
-	{#if statuses.length > 0}
-		&rarr;
-		{#each statuses as s (s)}
-			<button class="link" type="submit" on:click={() => (status = s)}>
-				{problem_status[s]}
-			</button>
-		{/each}
+<div class="col padding-20 gap-10 content-900">
+	{#if drafts || solutions}
+		<div>
+			{#if drafts}
+				<a class="link right-5 comma nowrap" href="/drafts?problem_id={id}">
+					<span class="monospace">{drafts}</span>
+					{getPlural(drafts, ['правка', 'правки', 'правок'])}
+				</a>
+			{/if}
+			{#if solutions}
+				<a class="link right-5 comma nowrap" href="/solutions?problem_id={id}">
+					<span class="monospace">{solutions}</span>
+					{getPlural(solutions, ['решение', 'решения', 'решений'])}
+				</a>
+			{/if}
+		</div>
 	{/if}
-</form>
+	<form
+		method="post"
+		action="?/status"
+		class="row gap-10 wrap"
+		use:enhance={() => {
+			statuses = getStatuses();
+			return applyAction;
+		}}
+	>
+		<input type="hidden" bind:value={status} name="status" id="status" />
+		<span>{problem_status[status]}</span>
+		{#if statuses.length > 0}
+			&rarr;
+			{#each statuses as s (s)}
+				<button class="link" type="submit" on:click={() => (status = s)}>
+					{problem_status[s]}
+				</button>
+			{/each}
+		{/if}
+	</form>
+</div>

@@ -3,8 +3,12 @@ export const parse = (text) => {
 
     let code = false;
     text.split('```').forEach((t) => {
-        t.split('\n').forEach(r => {
-            if (r) result.push(code ? r : getSecretCodeLinkUserText(r));
+        t.split('\r\n').forEach(r => {
+            if (r) {
+                result.push(code ? r : getSecretCodeLinkUserText(r));
+            } else {
+                result.push(null);
+            }
         });
         code = !code;
     });

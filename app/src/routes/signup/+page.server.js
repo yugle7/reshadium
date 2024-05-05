@@ -11,7 +11,8 @@ export const actions = {
         console.log(data);
 
         const email = data.get('email');
-        const contacts = data.get('contacts') ? data.get('contacts').split() : [];
+        let contacts = data.get('contacts');
+        contacts = contacts ? contacts.split('\n') : null;
 
         const hash = crypto.createHash('sha256')
         hash.update(data.get('password'))
@@ -32,7 +33,7 @@ export const actions = {
             });
         } catch (err) {
             console.log(err.message);
-            return fail(401, { errors: err.message });
+            return { error: 'логин и/или почта уже заняты' };
         }
         try {
             const { record } = await pb.collection('users').authWithPassword(email, password);
@@ -45,7 +46,8 @@ export const actions = {
             return { profile: pb.authStore.model }
 
         } catch (err) {
-            return fail(401, { errors: err.message });
+            console.log(err.message);
+            return fail(401, { errors: 'не получилось авторизоваться' });
         }
     }
 }

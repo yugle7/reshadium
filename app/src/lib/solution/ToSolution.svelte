@@ -4,6 +4,8 @@
 
 	import Label from '$lib/text/Label.svelte';
 
+	import { getTime } from '$lib/time/data';
+
 	import { problem_category } from '$lib/problem/data';
 	import { solution_progress } from './data';
 
@@ -30,7 +32,7 @@
 		<span class="subtitle">{solution_progress[solution.progress]}</span>
 		<span class="right line-2 nowrap">
 			<ToAuthor author={solution.author} />
-			<Date time={solution.created} />
+			<Date time={getTime(solution.created)} />
 		</span>
 	</span>
 </div>

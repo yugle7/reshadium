@@ -25,8 +25,15 @@ export const auth_provider = {
 
 export function getAuthor(user) {
     const { username, position } = user;
+    if (position == null) return { username };
     return { username, position };
 }
+
+export const getAdmin = (username) => ({
+    id: username.padStart(15, '0'),
+    username,
+    role: 3
+});
 
 
 export function getColor(position) {

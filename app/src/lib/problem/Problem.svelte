@@ -52,9 +52,6 @@
 				</div>
 			</Hide>
 		{/if}
-		{#if profile.is_manager}
-			<Status {problem} {profile} />
-		{/if}
 	{/if}
 	<div class="row away center">
 		<Likes dst={problem} {profile} />

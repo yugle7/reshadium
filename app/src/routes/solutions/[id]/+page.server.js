@@ -1,6 +1,7 @@
 import { addId } from "$lib";
 import { solution_progress, getSolution } from "$lib/solution/data";
 import { getAuthor } from "$lib/user/data";
+import { loadMessages } from "$lib/chat/data";
 
 async function loadReacts(pb, talk_id) {
     const res = await pb.collection('reacts').getFullList({
@@ -32,13 +33,6 @@ async function loadTalk(pb, profile_id, chat_id) {
         talk.reacts = {};
     }
     return talk;
-}
-
-async function loadMessages(pb, chat_id) {
-    return await pb.collection('messages').getFullList({
-        filter: `chat_id="${chat_id}"`,
-        sort: 'created'
-    });
 }
 
 async function loadChat(pb, solution, problem) {
@@ -211,7 +205,7 @@ export const actions = {
                     progress,
                     solution: getSolution(solution)
                 }),
-                pb.collection('solutions').update(id, {
+                pb.collection('solutions').update(solution.id, {
                     reviewer: null,
                     reviewer_id: null,
                     progress

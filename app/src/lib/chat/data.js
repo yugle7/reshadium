@@ -1,5 +1,6 @@
 import { writable } from "svelte/store";
-import { subId } from "..";
+import { subId } from "$lib";
+import { getTime } from "$lib/time/data";
 
 export const show = writable(null);
 export const look = writable(null);
@@ -49,4 +50,12 @@ export const getUrl = (chat) => {
 export const getReply = (message) => {
     const { id, author_id, author, text } = message;
     return { id, author_id, author, text };
+}
+
+export async function loadMessages(pb, chat_id) {
+    const messages = await pb.collection('messages').getFullList({
+        filter: `chat_id="${chat_id}"`,
+        sort: 'created'
+    });
+    return messages;
 }

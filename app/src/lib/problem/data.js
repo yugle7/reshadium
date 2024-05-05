@@ -23,6 +23,12 @@ export const problem_status = [
     'Выложена'
 ];
 
+export const problem_rule = [
+    'Ручная проверка',
+    'Частично вручную',
+    'Проверка роботом'
+];
+
 export const problem_category = [
     'Теория вероятностей',
     'На смекалку',

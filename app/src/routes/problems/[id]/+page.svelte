@@ -6,8 +6,7 @@
 	import Chat from '$lib/chat/Chat.svelte';
 	import ToChat from '$lib/chat/ToChat.svelte';
 
-	import Problem from '$lib/problem/Problem.svelte';
-	import Solution from '$lib/problem/Solution.svelte';
+	import Problem from './Problem.svelte';
 
 	import Resize from '$lib/page/Resize.svelte';
 	import Side from '$lib/problem/Side.svelte';
@@ -37,16 +36,14 @@
 		<Over {problem} {profile} />
 	{:else if problem}
 		<Top types={chat_types}>Задача</Top>
-		<Problem {problem} {solution} {profile} />
-		<Solution {solution} {profile} {form} />
+		<Problem {problem} {solution} {profile} {form} />
 	{/if}
 {:else if problem}
 	<div class="scroll">
 		{#if !side}
 			<ToChat {chat} type="2" />
 		{/if}
-		<Problem {problem} {solution} {profile} />
-		<Solution {solution} {profile} {form} />
+		<Problem {problem} {solution} {profile} {form} />
 	</div>
 	{#if side}
 		<Resize>

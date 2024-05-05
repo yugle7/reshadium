@@ -2,6 +2,8 @@
 	import { enhance } from '$app/forms';
 	import { solution_progress } from './data';
 
+	import { getTime } from '$lib/time/data';
+
 	import ToAuthor from '$lib/user/ToAuthor.svelte';
 	import Date from '$lib/time/Date.svelte';
 	import Author from '$lib/user/Author.svelte';
@@ -19,7 +21,6 @@
 	$: proof = solution.proof;
 </script>
 
-
 <div class="highlighted">
 	<div class="col gap-10 padding-20 content-900">
 		<Label text={answer} label="Ответ" />
@@ -31,7 +32,7 @@
 			{/if}
 			<span class="right line-2 nowrap">
 				<ToAuthor author={solution.author} />
-				<Date time={solution.created} />
+				<Date time={getTime(solution.changed)} />
 			</span>
 		</span>
 

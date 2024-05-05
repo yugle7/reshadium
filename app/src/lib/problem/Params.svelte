@@ -1,5 +1,5 @@
 <script>
-	import { problem_status, problem_sort, problem_weight, problem_category } from './data';
+	import { problem_status, problem_sort, problem_weight, problem_category, problem_rule } from './data';
 	import { solution_progress } from '$lib/solution/data';
 
 	import Search from '$lib/state/Search.svelte';
@@ -18,6 +18,7 @@
 	{#if profile.role >= 2}
 		<Radio key="status" labels={problem_status} />
 	{/if}
+	<Select key="rule" labels={problem_rule} />
 	<Selects key="progress" labels={solution_progress} />
 {/if}
 <Radio key="sort" labels={problem_sort} />

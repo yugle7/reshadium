@@ -33,7 +33,7 @@
 
 {#if rating > 0}
 	<div class="col gap-5">
-		<span class="title"><span class="monospace bold">{position}</span> место</span>
+		<span class="title"><span class="monospace">{position}</span> место</span>
 		<span class="subtitle">Рейтинг {rating}</span>
 	</div>
 {/if}

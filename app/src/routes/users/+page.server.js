@@ -19,7 +19,7 @@ const getPositions = async (pb) => {
 
 function getUser(user, friends, positions) {
     const { id, username, rating, role } = user;
-    const position = !rating && role >= 2 ? null : positions[rating];
+    const position = rating ? positions[rating] : (role >= 2 ? null : 0);
     return { id, username, position, rating, role, friend: friends.has(id) }
 }
 

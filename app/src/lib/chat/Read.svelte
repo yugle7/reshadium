@@ -1,7 +1,7 @@
 <script>
 	import { pb } from '$lib';
 
-	import Ago from '$lib/time/Ago.svelte';
+	import Ago from '$lib/date/Ago.svelte';
 
 	import { down, select, look, show, scroll } from './data';
 	import { afterUpdate, onMount } from 'svelte';
@@ -111,7 +111,7 @@
 		{/if}
 		{#if message.date}
 			<div class="center padding-10 line-2">
-				<Ago time={message.date} />
+				<Ago date={message.date} />
 			</div>
 		{/if}
 		{#if !message.deleted}

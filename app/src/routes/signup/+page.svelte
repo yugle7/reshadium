@@ -10,6 +10,7 @@
 	import Contacts from '$lib/state/Contacts.svelte';
 
 	export let form;
+	$: console.log(form);
 
 	$: disabled =
 		['username', 'fullname', 'email', 'password', 'contacts'].some((k) => $errors[k]) ||

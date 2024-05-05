@@ -3,7 +3,7 @@
 	import { afterUpdate } from 'svelte';
 
 	import Author from '$lib/user/Author.svelte';
-	import Ago from '$lib/time/Ago.svelte';
+	import Ago from '$lib/date/Ago.svelte';
 	import Time from '$lib/time/Time.svelte';
 	import Text from '$lib/text/Text.svelte';
 
@@ -41,7 +41,7 @@
 	{#each dst as { id, date, author, created, text } (id)}
 		{#if date}
 			<div class="center line-2">
-				<Ago time={date} />
+				<Ago {date} />
 			</div>
 		{/if}
 		<li class="padding-10">

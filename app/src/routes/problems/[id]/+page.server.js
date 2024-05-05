@@ -1,7 +1,8 @@
 import { addId } from "$lib";
 import { solution_progress } from "$lib/solution/data";
-import { getAuthor } from "$lib/user/data";
+import { getAuthor, getAdmin } from "$lib/user/data";
 import { isProven } from "$lib/rule/data";
+import { loadMessages } from "$lib/chat/data";
 
 async function loadReacts(pb, talk_id) {
     const res = await pb.collection('reacts').getFullList({
@@ -33,13 +34,6 @@ async function loadTalk(pb, profile_id, chat_id) {
         talk.reacts = {};
     }
     return talk;
-}
-
-async function loadMessages(pb, chat_id) {
-    return await pb.collection('messages').getFullList({
-        filter: `chat_id="${chat_id}"`,
-        sort: 'created'
-    });
 }
 
 async function loadChat(pb, profile, problem, type) {
@@ -86,11 +80,6 @@ export async function load({ parent, url, locals }) {
     return { chat, talk }
 }
 
-const sendMessage = async (pb, solution, progress) => {
-    if (!progress) await createTalk(pb, solution);
-    updateTalk(pb, solution);
-}
-
 const createTalk = async (pb, solution) => {
     const { id, author_id, problem_id } = solution;
 
@@ -115,37 +104,98 @@ const createTalk = async (pb, solution) => {
     }
 };
 
+const getStep = (solution, progress) => {
+    if (!solution.progress) return 1;
+    if ((progress <= 2) === (solution.progress <= 2)) return 0;
+    return progress === 5 ? -1 : 1;
+}
 
-const updateTalk = async (pb, solution) => {
-    const { author_id, author, progress } = solution;
-    const text = solution_progress[progress];
+const updateSolution = async (pb, solution, problem, reviewer, answer, proof, progress) => {
+    const { weight } = problem;
+    const { author_id } = solution;
 
+    const dst = { progress, 'step+': getStep(solution, progress) };
+    if (answer != solution.answer) dst.answer = answer;
+    if (proof != solution.proof) dst.proof = proof;
+    if (dst.answer || dst.proof) dst.changed = new Date();
+
+    const actions = [pb.collection('solutions').update(id, dst)];
+
+    if (!solution.progress) {
+        await createTalk(pb, solution);
+    }
+    if (solution.progress !== progress) {
+        actions.push(
+            sendMessage(
+                pb,
+                solution.id,
+                reviewer.id,
+                getAuthor(reviewer),
+                solution_progress[progress]
+            )
+        );
+        if (!solution.progress) {
+            actions.push(pb.collection('users').update(author_id, { 'solutions+': 1 }));
+            actions.push(pb.collection('problems').update(problem.id, { 'solutions+': 1 }));
+        }
+    }
+    const user = {};
+
+    if (weight) {
+        if (progress === 5 && solution.progress !== 5) {
+            const { role, rating } = await pb.collection('users').update(author_id, { 'rating+': weight });
+            if (!role && rating > 5) user.role = 1;
+            user.rating = rating;
+
+            for (let i = 0; i < weight; i++) {
+                const id = String(rating - i).padStart(15, '0');
+                actions.push(pb.collection('positions').update(id, { 'users+': 1 }));
+            }
+        } else if (progress !== 5 && solution.progress === 5) {
+            const { rating } = await pb.collection('users').update(author_id, { 'rating-': weight });
+            user.rating = rating;
+
+            for (let i = 1; i <= weight; i++) {
+                const id = String(rating + i).padStart(15, '0');
+                actions.push(pb.collection('positions').update(id, { 'users-': 1 }));
+            }
+        }
+    }
+    await Promise.all(actions);
+
+    if (user.rating != null) {
+        const id = String(user.rating).padStart(15, '0');
+        const { users } = await pb.collection('positions').getOne(id);
+        user.position = users;
+        await pb.collection('users').update(author_id, user);
+    }
+}
+
+const sendMessage = async (pb, chat_id, author_id, author, text) => {
     try {
-        let res = await pb.collection('messages').create({
+        const { id, updated } = await pb.collection('messages').create({
             text,
             author_id,
             author,
-            chat_id: solution.id
+            chat_id
         });
-
-        res = await pb.collection('chats').update(solution.id, {
+        const { sent } = await pb.collection('chats').update(chat_id, {
             'sent+': 1,
             sender_id: author_id,
             message: { text, author },
-            message_id: res.id,
-            changed: res.updated
+            message_id: id,
+            changed: updated
         });
-
-        const id = addId(author_id, solution.id);
-        await pb.collection('talks').update(id, {
-            read: res.sent,
+        await pb.collection('talks').update(
+            addId(author_id, chat_id), {
+            read: sent,
             deleted: false
         });
-
     } catch (err) {
         console.log(err.message);
     }
 };
+
 
 export const actions = {
     progress: async ({ request, params, locals }) => {
@@ -153,58 +203,27 @@ export const actions = {
         const profile = pb.authStore.model;
 
         const id = addId(profile.id, params.id);
-        const { author_id, progress, step, expand } = await pb.collection('solutions').getOne(id, { expand: 'problem_id' });
-        const problem = expand.problem_id;
-        const { weight, rule } = problem;
+        const solution = await pb.collection('solutions').getOne(id, { expand: 'problem_id' });
+        const problem = solution.expand.problem_id;
 
         const data = await request.formData();
         console.log(data);
 
-        let solution = {
-            progress: +data.get('progress'),
-            'step+': (progress === 0 || progress === 3 || progress === 4) - (progress === 5),
-            changed: new Date()
-        };
-        const answer = data.get('answer');
-        const proof = data.get('proof');
+        const answer = data.get('answer') || solution.answer;
+        const proof = data.get('proof') || solution.proof;
+        let progress = +data.get('progress')
 
-        if (answer != null) solution.answer = answer;
-        if (proof != null) solution.proof = proof;
-
-        solution = await pb.collection('solutions').update(id, solution);
-        const actions = [];
-
-        if (solution.progress !== progress) {
-            actions.push(sendMessage(pb, solution, progress));
-
-            if (!progress) {
-                actions.push(pb.collection('users').update(profile.id, { 'solutions+': 1 }));
-                actions.push(pb.collection('problems').update(problem.id, { 'solutions+': 1 }));
-            }
-        }
-        if (progress === 5 && solution.progress !== 5 && weight > 0) {
-            const { rating } = await pb.collection('users').update(author_id, { 'rating-': weight });
-
-            for (let i = 1; i <= weight; i++) {
-                const id = String(rating + i).padStart(15, '0');
-                actions.push(pb.collection('positions').update(id, { 'users-': 1 }));
-            }
-        }
-        await Promise.all(actions);
-
-        if (solution.progress == 2) {
-            const proven = await isProven(pb, solution, rule);
+        let reviewer = profile;
+        if (progress == 2 && problem.rule) {
+            const proven = await isProven(pb, problem, answer, proof);
             if (proven != null) {
-                const progress = proven ? 5 : 4;
-                solution = await pb.collection('solutions').update(id, {
-                    'step+': 1,
-                    progress
-                });
-                await updateTalk(pb, solution);
-                return { progress };
+                progress = proven ? 5 : 4;
+                reviewer = getAdmin('robot');
             }
         }
-        return {};
+        await updateSolution(pb, solution, reviewer, progress, answer, proof);
+
+        return { progress };
     },
     status: async ({ request, params, locals }) => {
         const pb = locals.pb;
@@ -245,7 +264,8 @@ export const actions = {
                 react,
                 author_id: profile.id,
                 author: getAuthor(profile),
-                problem_id
+                problem_id,
+                changed: new Date()
             });
             await pb.collection('problems').update(problem_id, { [react + '+']: 1 });
         }

@@ -2,15 +2,20 @@
 	import { pb, params } from '$lib';
 	import { onDestroy, onMount } from 'svelte';
 
-	
 	import ToTalk from '$lib/talk/ToTalk.svelte';
+	import { getTime } from '$lib/time/data';
 
 	export let chats;
 	export let profile;
 
-	async function subscribe() {
+	const download = () => {
 		chats.sort((a, b) => (a.changed < b.changed) - (a.changed > b.changed));
+		chats.forEach((chat) => (chat.changed = getTime(chat.changed)));
 		chats = chats;
+	};
+
+	async function subscribe() {
+		download();
 
 		const talks = {};
 		chats.forEach(({ id, talk }) => (talks[id] = talk));
@@ -31,6 +36,7 @@
 
 			if (talk && action === 'update') {
 				record.talk = talk;
+				record.changed = getTime(record.changed);
 
 				if (record.changed > chats[0].changed) {
 					chats = [record, ...chats.filter(({ id }) => id !== record.id)];

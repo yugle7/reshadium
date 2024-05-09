@@ -119,7 +119,7 @@ const updateSolution = async (pb, solution, problem, reviewer, answer, proof, pr
     if (proof != solution.proof) dst.proof = proof;
     if (dst.answer || dst.proof) dst.changed = new Date();
 
-    const actions = [pb.collection('solutions').update(id, dst)];
+    const actions = [pb.collection('solutions').update(solution.id, dst)];
 
     if (!solution.progress) {
         await createTalk(pb, solution);
@@ -221,7 +221,7 @@ export const actions = {
                 reviewer = robot;
             }
         }
-        await updateSolution(pb, solution, reviewer, progress, answer, proof);
+        await updateSolution(pb, solution, problem, reviewer, answer, proof, progress);
         return { progress };
     },
     status: async ({ request, params, locals }) => {

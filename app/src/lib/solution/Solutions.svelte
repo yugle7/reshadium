@@ -1,5 +1,5 @@
 <script>
-	import { pb, params } from '$lib';
+	import { pb, screen, params } from '$lib';
 	import { normText } from '$lib/text/data';
 
 	import { onDestroy, onMount } from 'svelte';
@@ -28,7 +28,7 @@
 </script>
 
 {#if dst.length > 0}
-	<ul>
+	<ul class="top-5" hidden={$screen & 1}>
 		{#each dst as solution (solution.id + solution.updated)}
 			<li class="hover">
 				<ToSolution {solution} />

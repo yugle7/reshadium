@@ -1,6 +1,4 @@
 <script>
-	import { afterUpdate, onMount, tick } from 'svelte';
-
 	let col;
 
 	let up = false;

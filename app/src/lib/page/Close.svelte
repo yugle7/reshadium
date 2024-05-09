@@ -4,7 +4,7 @@
 
 <style>
 	img {
-		min-width: 40px;
+		min-width: 60px;
 	}
 	button {
 		padding-left: 20px;

@@ -32,16 +32,19 @@
 </svelte:head>
 
 {#if $screen}
-	<Top>Люди</Top>
-	<h1 class="info">{title}</h1>
-	{#await data.users}
-		<h2 class="info">Получаем</h2>
-	{:then users}
-		<Users {users} {profile} />
-	{/await}
-	<Over {default_params}>
-		<Params {profile} />
-	</Over>
+	{#if $screen === 3}
+		<Over {default_params}>
+			<Params {profile} />
+		</Over>
+	{:else}
+		<Top>Люди</Top>
+		<h1 class="info">{title}</h1>
+		{#await data.users}
+			<h2 class="info">Получаем</h2>
+		{:then users}
+			<Users {users} {profile} />
+		{/await}
+	{/if}
 {:else}
 	<Scroll>
 		{#await data.users}

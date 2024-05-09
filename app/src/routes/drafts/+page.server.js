@@ -38,7 +38,7 @@ export async function load({ locals, url }) {
 
     const profile = pb.authStore.model;
     if (!profile) throw redirect('/login');
-    if (profile.role < 2) error(404, 'не доступно для обычных пользователей');
+    if (profile.role < 2) error(404, 'недоступно для обычных пользователей');
 
     const params = { ...default_params };
     for (const key of ['sort', 'category', 'editor_id', 'problem_id']) {

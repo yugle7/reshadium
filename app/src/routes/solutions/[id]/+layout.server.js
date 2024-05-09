@@ -15,7 +15,7 @@ export async function load({ params, locals }) {
     
     const profile = pb.authStore.model;
     if (!profile) throw redirect('/login');
-    if (profile.role < 2) error(404, 'не доступно для обычных пользователей');
+    if (profile.role < 2) error(404, 'недоступно для обычных пользователей');
 
     const solution = await loadSolution(pb, params.id);
     if (!solution) return {};

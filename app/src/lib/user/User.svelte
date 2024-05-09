@@ -9,15 +9,12 @@
 </script>
 
 <div class="col scroll gap-30 padding-20 content-900">
+	<Profile {user} {profile} />
 	{#if user}
-		<Profile author={user} />
 		{#if profile && profile.role >= 2 && profile.role > user.role}
 			<Role {user} />
 		{/if}
-	{:else}
-		<Profile author={profile} />
-		{#if profile.to}
-			<Wanted {profile} />
-		{/if}
+	{:else if profile.to}
+		<Wanted {profile} />
 	{/if}
 </div>

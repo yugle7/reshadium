@@ -5,7 +5,10 @@
 	import Author from './Author.svelte';
 	import Contact from './Contact.svelte';
 
-	export let author;
+	export let user;
+	export let profile;
+
+	const author = user || profile;
 
 	const { position, rating, fullname, role, email, contacts } = author;
 	const { id, friends, problems, solutions, drafts, discussions, reviews } = author;
@@ -53,10 +56,17 @@
 			</a>
 		{/if}
 		{#if solutions}
-			<a class="link right-5 comma nowrap" href="/solutions?author_id={id}">
-				<span class="monospace">{solutions}</span>
-				{getPlural(solutions, ['решение', 'решения', 'решений'])}
-			</a>
+			{#if user}
+				<a class="link right-5 comma nowrap" href="/solutions?author_id={id}">
+					<span class="monospace">{solutions}</span>
+					{getPlural(solutions, ['решение', 'решения', 'решений'])}
+				</a>
+			{:else}
+				<a class="link right-5 comma nowrap" href="/chats?type=6">
+					<span class="monospace">{solutions}</span>
+					{getPlural(solutions, ['решение', 'решения', 'решений'])}
+				</a>
+			{/if}
 		{/if}
 		{#if friends}
 			<a class="link right-5 comma nowrap" href="/users?friend=true">
@@ -78,4 +88,3 @@
 		{/if}
 	</div>
 {/if}
-

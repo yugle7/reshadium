@@ -39,10 +39,10 @@ export const actions = {
             const { record } = await pb.collection('users').authWithPassword(email, password);
             console.log(record);
 
-            // const res = await pb.collection('users').requestVerification(email);
-            // if (!res) {
-            //     return fail(401, { errors: 'не получилось отправить письмо' });
-            // }
+            const res = await pb.collection('users').requestVerification(email);
+            if (!res) {
+                return fail(401, { errors: 'не получилось отправить письмо' });
+            }
             return { profile: pb.authStore.model }
 
         } catch (err) {

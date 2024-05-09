@@ -1,5 +1,5 @@
 <script>
-	import { params } from '$lib';
+	import { screen, params } from '$lib';
 	import { normText } from '$lib/text/data';
 
 	import ToProblem from './ToProblem.svelte';
@@ -13,7 +13,7 @@
 </script>
 
 {#if dst.length > 0}
-	<ul class="top-5">
+	<ul class="top-5" hidden={$screen & 1}>
 		{#each dst as problem (problem.id)}
 			<li class="hover">
 				<ToProblem {problem} {profile} />

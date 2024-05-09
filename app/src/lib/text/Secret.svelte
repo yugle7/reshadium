@@ -1,5 +1,5 @@
 <script>
-	import { isClick } from '$lib/text/data';
+	import { isClick } from './data';
 
 	export let title;
 	export let result;

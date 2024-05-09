@@ -5,7 +5,7 @@
 	let hidden = false;
 
 	function hide() {
-		hidden = scrollY < window.scrollY;
+		hidden = 40 < scrollY && scrollY < window.scrollY;
 		scrollY = window.scrollY;
 	}
 	onMount(() => {

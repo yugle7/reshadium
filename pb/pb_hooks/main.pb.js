@@ -1,6 +1,6 @@
 onAfterBootstrap((e) => {
-    // const src = '/Users/gleb/Projects/sveltekit/reshadium/pb/pb_hooks';
-    const src = '/pb/pb_hooks';
+    const src = '/Users/gleb/Projects/sveltekit/reshadium/pb/pb_hooks';
+    // const src = '/pb/pb_hooks';
 
     const count = new Array(2000).fill(0);
     {

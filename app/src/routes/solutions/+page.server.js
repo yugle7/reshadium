@@ -70,13 +70,14 @@ export async function load({ locals, url }) {
 
     const profile = pb.authStore.model;
     if (!profile) throw redirect('/login');
-    if (profile.role < 2) error(404, 'не доступно для обычных пользователей');
+    if (profile.role < 2) error(404, 'недоступно для обычных пользователей');
 
     const params = { ...default_params };
     for (const key of ['sort', 'weight', 'category', 'progress', 'status', 'author_id', 'problem_id', 'reviewer_id']) {
         params[key] = url.searchParams.get(key) || params[key];
     }
     console.log(params);
+
     params.reviewed = url.searchParams.get('reviewed') === 'true';
     return { profile, solutions: loadSolutions(pb, profile, params) };
 }

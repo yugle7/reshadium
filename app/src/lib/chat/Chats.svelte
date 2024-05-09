@@ -1,5 +1,5 @@
 <script>
-	import { pb, params } from '$lib';
+	import { pb, screen, params } from '$lib';
 	import { onDestroy, onMount } from 'svelte';
 
 	import ToTalk from '$lib/talk/ToTalk.svelte';
@@ -59,7 +59,7 @@
 </script>
 
 {#if dst.length > 0}
-	<ul>
+	<ul class="top-5" hidden={$screen & 1}>
 		{#each dst as chat (chat.id + chat.changed)}
 			<li class="hover">
 				<ToTalk {chat} talk={chat.talk} {profile} />

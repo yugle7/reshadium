@@ -1,4 +1,5 @@
 <script>
+	import { screen } from '$lib';
 	import ToUser from './ToUser.svelte';
 
 	export let users;
@@ -6,7 +7,7 @@
 </script>
 
 {#if users.length > 0}
-	<ul>
+	<ul class="top-5" hidden={$screen & 1}>
 		{#each users as user (user.id)}
 			<li class:highlighted={user.id === profile?.id} class="hover">
 				<ToUser {user} />

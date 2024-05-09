@@ -8,8 +8,6 @@
 	import ToAuthor from '$lib/user/ToAuthor.svelte';
 	import Date from '$lib/time/Date.svelte';
 
-	import Status from './Status.svelte';
-
 	export let problem;
 	export let solution = null;
 	export let profile = null;
